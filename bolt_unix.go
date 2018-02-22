@@ -54,7 +54,7 @@ func mmap(db *DB, sz int) error {
 
 	// Advise the kernel that the mmap is accessed randomly.
 	err = madvise(b, syscall.MADV_RANDOM)
-	if err != syscall.ENOSYS {
+	if err == syscall.ENOSYS {
 		// The syscall is not implemented in kernel but it still works.
 	} else if err != nil {
 		return fmt.Errorf("madvise: %s", err)
